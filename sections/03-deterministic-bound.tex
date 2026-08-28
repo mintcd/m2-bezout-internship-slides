@@ -80,56 +80,56 @@
         arrow/.style={->, thick, >=latex}
       ]
 
-      \node[lemma] (riemann) at (0,0) {
+      \node[lemma, visible on=<1->] (riemann) at (0,0) {
         Riemann-sum estimate
       };
-      \node[result] (rough) at (5,0) {
+      \node[result, visible on=<1->] (rough) at (5,0) {
       $z_n=n^{\alpha+o(1)}$
       };
 
-      \node[lemma] (bounds) at (0,-1.5) {
+      \node[lemma, visible on=<2->] (bounds) at (0,-1.5) {
         Integral bounds
       };
-      \node[result] (theta) at (5,-1.5) {
+      \node[result, visible on=<2->] (theta) at (5,-1.5) {
         $z_n=\Theta(n^\alpha)$
       };
 
-      \node[lemma] (vanish) at (10,-1.5) {
+      \node[lemma, visible on=<3->] (vanish) at (10,-1.5) {
         $|\Delta z_n|\to 0$
       };
 
-      \node[lemma] (eventual-exceed) at (10,-3) {
+      \node[lemma, visible on=<3->] (eventual-exceed) at (10,-3) {
         $\forall M, z_n > M  \text{ eventually}$
       };
 
-      \node[lemma] (asymptotics-sum-negative-variation) at (5,-3) {
+      \node[lemma, visible on=<4->] (asymptotics-sum-negative-variation) at (5,-3) {
         $\sum_{i=1}^{n} \max(\Delta z_i,0) = O(n^v)$
       };
 
-      \node[result] (mono) at (0,-3) {
+      \node[result, visible on=<4->] (mono) at (0,-3) {
         Eventual monotonicity
       };
-      \node[result] (delayed) at (0,-4.5) {
+      \node[result, visible on=<5->] (delayed) at (0,-4.5) {
       Delayed recurrence \\
       $nz_{n+2}-(n-1)z_{n+1}$\\
       $=2(u+v)z_n-vz_{\lfloor n/2\rfloor}$
       };
-      \node[lemma] (absolute-convergence) at (5,-4.5) {
+      \node[lemma, visible on=<6->] (absolute-convergence) at (5,-4.5) {
         $\sum |\Delta(z_n/n^\alpha)|<\infty$
       };
-      \node[result] (exact) at (10,-4.5) {
+      \node[result, visible on=<6->] (exact) at (10,-4.5) {
         $z_n\sim Cn^\alpha$
       };
 
-      \draw[arrow] (riemann) -- (rough);
-      \draw[arrow] (bounds) -- node[midway, above, sloped, font=\scriptsize\itshape] {induction} (theta);
-      \draw[arrow] (theta) -- (vanish);
-      \draw[arrow] (vanish) -- (eventual-exceed);
-      \draw[arrow] (eventual-exceed) -- (asymptotics-sum-negative-variation);
-      \draw[arrow] (asymptotics-sum-negative-variation) -- (mono);
-      \draw[arrow] (mono) -- (delayed);
-      \draw[arrow] (delayed) -- node[font=\scriptsize\itshape, above] {$\substack{\text{dyadic} \\ \text{argument}}$} (absolute-convergence);
-      \draw[arrow] (absolute-convergence) -- (exact);
+      \draw<1->[arrow] (riemann) -- (rough);
+      \draw<2->[arrow] (bounds) -- node[midway, above, sloped, font=\scriptsize\itshape] {induction} (theta);
+      \draw<3->[arrow] (theta) -- (vanish);
+      \draw<3->[arrow] (vanish) -- (eventual-exceed);
+      \draw<4->[arrow] (eventual-exceed) -- (asymptotics-sum-negative-variation);
+      \draw<4->[arrow] (asymptotics-sum-negative-variation) -- (mono);
+      \draw<5->[arrow] (mono) -- (delayed);
+      \draw<6->[arrow] (delayed) -- node[font=\scriptsize\itshape, above] {$\substack{\text{dyadic} \\ \text{argument}}$} (absolute-convergence);
+      \draw<6->[arrow] (absolute-convergence) -- (exact);
     \end{tikzpicture}%
   }
 

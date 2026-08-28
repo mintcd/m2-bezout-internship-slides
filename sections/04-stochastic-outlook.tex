@@ -48,9 +48,9 @@
 
 \begin{frame}{Existence via Tychonoff}
   \begin{itemize}
-    \item $\M(\RR)$: the space of bounded Radon measures on $\RR$
-    \item $\D(1)$: probability measures on $\RR_+$ with mean $1$
-    \item $\D_2(1,M)$: elements of $\D(1)$ with second moment at most $M$
+    \item<1-> $\M(\RR)$: the space of bounded Radon measures on $\RR$
+    \item<1-> $\D(1)$: probability measures on $\RR_+$ with mean $1$
+    \item<2-> $\D_2(1,M)$: elements of $\D(1)$ with second moment at most $M$
   \end{itemize}
   \resizebox{\textwidth}{!}{%
     \centering
@@ -80,44 +80,44 @@
         arrow/.style={->, thick, >=latex}
       ]
 
-      \node[lemma] (alpha) at (0,0) {
+      \node[lemma, visible on=<1->] (alpha) at (0,0) {
         Mean-correcting exponent\\
         choose $\alpha(\mu)\in(0,1]$\\
         with $\EE_{X\sim T_{\alpha(\mu)}(\mu)}[X]=1$
       };
-      \node[lemma] (invariant) at (8,0) {
+      \node[lemma, visible on=<2->] (invariant) at (8,0) {
       $\Phi(\mu):=T_{\alpha(\mu)}(\mu)$\\
       choose $M$ so that\\
       $\Phi(\D_2(1,M))\subseteq \D_2(1,M)$
       };
 
-      \node[lemma] (compact) at (8, -1.5) {
+      \node[lemma, visible on=<3->] (compact) at (8, -1.5) {
         $\D_2(1,M)\subset \M(\RR)$\\
         nonempty, compact, convex
       };
 
-      \node[lemma] (w1-continuous) at (0,-1.5) {
+      \node[lemma, visible on=<4->] (w1-continuous) at (0,-1.5) {
         $\Phi$ is continuous wrt.\\
         the Wasserstein-1 metric
       };
 
 
-      \node[lemma] (weak-continuous) at (0,-3) {
+      \node[lemma, visible on=<4->] (weak-continuous) at (0,-3) {
         $\Phi$ is continuous wrt.\\
         the weak topology
       };
 
-      \node[result] (fixed) at (8,-3) {
+      \node[result, visible on=<5->] (fixed) at (8,-3) {
         Tychonoff conclusion\\
         $\Phi(\mu^\star)=\mu^\star$\\
         $\alpha^\star=\alpha(\mu^\star)$
       };
 
-      \draw[arrow] (alpha) -- (invariant);
-      \draw[arrow] (invariant) -- node[font=\scriptsize\itshape, right] {Prokhorov's theorem}  (compact);
-      \draw[arrow] (w1-continuous) -- node[font=\scriptsize\itshape, right] {uniform integrability} (weak-continuous);
-      \draw[arrow] (weak-continuous) -- (fixed);
-      \draw[arrow] (compact) -- (fixed);
+      \draw<2->[arrow] (alpha) -- (invariant);
+      \draw<3->[arrow] (invariant) -- node[font=\scriptsize\itshape, right] {Prokhorov's theorem}  (compact);
+      \draw<4->[arrow] (w1-continuous) -- node[font=\scriptsize\itshape, right] {uniform integrability} (weak-continuous);
+      \draw<5->[arrow] (weak-continuous) -- (fixed);
+      \draw<5->[arrow] (compact) -- (fixed);
     \end{tikzpicture}%
   }
 \end{frame}
