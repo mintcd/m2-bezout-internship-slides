@@ -1,0 +1,137 @@
+\section{Deterministic Lower Bound}
+
+\begin{frame}{Bounding the Expectation}
+
+  $$Y_{n+2} \stackrel{d}{=} I^{(n)}\left(Y_{U_n}^{(1)} + Y_{n+1-U_n}^{(2)}\right) \,\,+\,\, J^{(n)} \max\left(Y_{U_n}^{(1)}, Y_{n+1-U_n}^{(2)}\right),\quad n\ge 1, \quad Y_1=1,Y_2=0.$$
+
+  Take the expectation of both sides. The difficulty is the term
+  \[
+    \EE\left[\max\left(Y_i^{(1)},Y_{n+1-i}^{(2)}\right)\right].
+  \]
+  Using
+  \[
+    \EE[\max(X,Y)]\geq \max(\EE[X],\EE[Y]),
+  \]
+  we get a deterministic lower-bound recurrence:
+  \[
+    z_{n+2}
+    =
+    \frac{2u}{n}\sum_{i=1}^{n} z_i
+    +
+    \frac{v}{n}\sum_{i=1}^{n}\max(z_i,z_{n+1-i}),
+    \qquad z_1=1,\;z_2=0.
+  \]
+\end{frame}
+
+\begin{frame}{Main Deterministic Result}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      A power-law ansatz $z_n\sim Cn^\alpha$ gives
+      \[
+        \alpha + v2^{-\alpha}=2(u+v)-1.
+      \]
+
+      \vspace{0.2cm}
+      \begin{mytheorem}[Exact asymptotics]
+        If $u>1/2$, then
+        \[
+          z_n\sim Cn^\alpha
+        \]
+        for some $C>0$, where $\alpha$ solves the equation above.
+      \end{mytheorem}
+    \end{column}
+
+    \begin{column}{0.43\textwidth}
+      \includegraphics[width=\linewidth]{ratio-strict-lower-bound.png}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.2cm}
+
+  We take the ansatz $z_n\sim Cn^\alpha$ to find out intermediate results that must be true.
+\end{frame}
+
+\begin{frame}{Proof Skeleton}
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=1.1cm,
+        every node/.style={font=\scriptsize},
+        proofstep/.style={
+            draw,
+            rounded corners,
+            fill=black!3,
+            align=center,
+            minimum width=3cm,
+            minimum height=1cm,
+            inner sep=4pt
+          },
+        lemma/.style={
+            proofstep,
+            fill=progress-bar!45,
+            draw=progress-bar!70!black
+          },
+        result/.style={
+            proofstep,
+            fill=gustave!8,
+            draw=gustave!80!black,
+            very thick
+          },
+        arrow/.style={->, thick, >=latex}
+      ]
+
+      \node[lemma] (riemann) at (0,0) {
+        Riemann-sum estimate
+      };
+      \node[result] (rough) at (5,0) {
+      $z_n=n^{\alpha+o(1)}$
+      };
+
+      \node[lemma] (bounds) at (0,-1.5) {
+        Integral bounds
+      };
+      \node[result] (theta) at (5,-1.5) {
+        $z_n=\Theta(n^\alpha)$
+      };
+
+      \node[lemma] (vanish) at (10,-1.5) {
+        $|\Delta z_n|\to 0$
+      };
+
+      \node[lemma] (eventual-exceed) at (10,-3) {
+        $\forall M, z_n > M  \text{ eventually}$
+      };
+
+      \node[lemma] (asymptotics-sum-negative-variation) at (5,-3) {
+        $\sum_{i=1}^{n} \max(\Delta z_i,0) = O(n^v)$
+      };
+
+      \node[result] (mono) at (0,-3) {
+        Eventual monotonicity
+      };
+      \node[result] (delayed) at (0,-4.5) {
+      Delayed recurrence \\
+      $nz_{n+2}-(n-1)z_{n+1}$\\
+      $=2(u+v)z_n-vz_{\lfloor n/2\rfloor}$
+      };
+      \node[lemma] (absolute-convergence) at (5,-4.5) {
+        $\sum |\Delta(z_n/n^\alpha)|<\infty$
+      };
+      \node[result] (exact) at (10,-4.5) {
+        $z_n\sim Cn^\alpha$
+      };
+
+      \draw[arrow] (riemann) -- (rough);
+      \draw[arrow] (bounds) -- node[midway, above, sloped, font=\scriptsize\itshape] {induction} (theta);
+      \draw[arrow] (theta) -- (vanish);
+      \draw[arrow] (vanish) -- (eventual-exceed);
+      \draw[arrow] (eventual-exceed) -- (asymptotics-sum-negative-variation);
+      \draw[arrow] (asymptotics-sum-negative-variation) -- (mono);
+      \draw[arrow] (mono) -- (delayed);
+      \draw[arrow] (delayed) -- node[font=\scriptsize\itshape, above] {$\substack{\text{dyadic} \\ \text{argument}}$} (absolute-convergence);
+      \draw[arrow] (absolute-convergence) -- (exact);
+    \end{tikzpicture}%
+  }
+
+  \vspace{0.2cm}
+\end{frame}

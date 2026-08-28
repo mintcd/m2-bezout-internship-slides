@@ -1,0 +1,125 @@
+\ProvidesPackage{styles}
+
+\RequirePackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{overlay-beamer-styles}
+\RequirePackage{caption}
+
+\RequirePackage{bm}
+\RequirePackage{mathabx}
+\RequirePackage{graphicx}
+
+\RequirePackage[lined,commentsnumbered]{algorithm2e}
+\RequirePackage{etoolbox}
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{eso-pic}
+\RequirePackage{pgf}
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{breakable,skins}
+
+\usetheme[sectionpage=progressbar,subsectionpage=progressbar]{metropolis}
+\beamertemplatenavigationsymbolsempty
+
+\definecolor{gustave}{HTML}{1d2392}
+\definecolor{background}{HTML}{274150}
+\definecolor{sbackground}{HTML}{1d2392}
+\definecolor{main-text}{HTML}{80A07C}
+\definecolor{enumercolor}{HTML}{A4CCE0}
+\definecolor{progress-bar}{HTML}{E6CBA0}
+
+\usecolortheme[named=sbackground]{structure}
+
+% TOC
+\setbeamertemplate{section in toc}[circle]
+\setbeamercolor{section in toc}{bg=sbackground!40, fg=black}
+\setbeamerfont{section number projected}{size=\large}
+
+% ENUM
+\setbeamercolor{frametitle}{fg=sbackground,bg=sbackground!40}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{progress bar}{fg=progress-bar!110,bg=progress-bar!50}
+\setbeamertemplate{enumerate items}[circle]
+\setbeamerfont{itemize item projected}{size=\huge}
+\setbeamerfont{item projected}{size=\large}
+
+% CAPTION
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+% LOGO
+\addtobeamertemplate{frametitle}{}{%
+  \begin{textblock*}{100mm}(\textwidth,-.9cm)
+    % \includegraphics[height=.7cm,width=.7cm]{logo.png}
+  \end{textblock*}}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+% FOOTLINE
+\setbeamercolor{custom1}{fg=black,bg=mycolor}
+\setbeamercolor{custom2}{fg=black, }
+\setbeamercolor{custom3}{fg=black,}
+\setbeamerfont{footline}{series=\bfseries}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=1\textwidth, sep=0.4em, right]{custom3}%
+    \strut \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}%
+}
+
+% Thank you slide
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry%
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}%
+  {%
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+
+% Shared counter for all theorem-like environments
+\newcounter{mytheoremcounter}
+
+\newtcolorbox{mydefinition}[1][]{%
+  enhanced,
+  title={Definition \stepcounter{mytheoremcounter}\themytheoremcounter\ifstrempty{#1}{}{ (#1)}},
+  colback=white,
+  colframe=gustave!50!black,
+  fonttitle=\bfseries,
+  boxed title style={
+    size=small,
+    colback=gustave!50!black,
+    colframe=gustave!50!black,
+  },
+}
+
+\newtcolorbox{mytheorem}[1][]{%
+  enhanced,
+  title={Theorem \stepcounter{mytheoremcounter}\themytheoremcounter\ifstrempty{#1}{}{ (#1)}},
+  colback=white,
+  colframe=gustave!50!black,
+  fonttitle=\bfseries,
+  boxed title style={
+    size=small,
+    colback=gustave!50!black,
+    colframe=gustave!50!black,
+  },
+}
+
+\newtcolorbox{myproposition}[1][]{%
+  enhanced,
+  title={Proposition \stepcounter{mytheoremcounter}\themytheoremcounter\ifstrempty{#1}{}{ (#1)}},
+  colback=white,
+  colframe=gustave!50!black,
+  fonttitle=\bfseries,
+  boxed title style={
+    size=small,
+    colback=gustave!50!black,
+    colframe=gustave!50!black,
+  },
+}

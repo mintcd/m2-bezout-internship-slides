@@ -1,0 +1,79 @@
+\section{Problem}
+
+\begin{frame}{A Random Model of Regular Expressions}
+
+  Let $\Sigma$ be an alphabet. A BST-like distribution with parameters $u,v \in [0,1]$ selects the root of a random tree of size $n$ as follows:
+
+  \begin{itemize}
+    \item If $n=1$, select a letter $a\in \Sigma$ uniformly at random.
+    \item If $n=2$, select a Kleene star (\texttt{*}).
+    \item If $n \ge 3$, then the root is chosen as
+          \begin{itemize}
+            \setbeamertemplate{itemize subitem}{\(\circ\)}
+            \item concatenation (\texttt{.}) with probability $u$,
+            \item alternation (\texttt{|}) with probability $v$,
+            \item Kleene star (\texttt{*}) with probability $1-u-v$.
+          \end{itemize}
+  \end{itemize}
+
+  \only<2-6>{
+    \begin{tikzpicture}[remember picture,overlay]
+      % anchor point on the page
+      \coordinate (treecenter) at ([xshift=-3cm,yshift=-3cm]current page.north east);
+
+      % slide 2: big cloud
+      \node[draw,cloud,minimum size=2cm,visible on=<2>] (rootcloud) at ([yshift=-1.25cm]treecenter) {6 nodes};
+
+      % root symbol '+' appears from slide 3 and stays
+      \node[visible on=<3->] (plus) at (treecenter) {\textcolor{gustave}{$+$}};
+
+      % small clouds for slide 3 (placed at final positions but only visible on slide 3)
+      \node[draw,cloud,visible on=<3>] (a_cloud)    at ([xshift=-0.75cm,yshift=-0.75cm]treecenter) {1};
+      \node[draw,cloud,visible on=<3>] (star_cloud) at ([xshift= 0.75cm,yshift=-0.75cm]treecenter) {4};
+      \draw<3> (plus) -- (a_cloud);
+      \draw<3> (plus) -- (star_cloud);
+
+      % slide 4: show text 'a' and '*' and a small cloud '3' (placed at final coordinates)
+      \node[visible on=<4->] (a_lbl)    at ([xshift=-0.75cm,yshift=-0.75cm]treecenter) {\textcolor{gustave}{$a$}};
+      \node[visible on=<4->] (star_sym)  at ([xshift= 0.75cm,yshift=-0.75cm]treecenter) {\textcolor{gustave}{$\ast$}};
+      \node[draw,cloud,visible on=<4>] (dot_cloud) at ([xshift=0.75cm,yshift=-1.5cm]treecenter) {3};
+      \draw<4-> (plus) -- (a_lbl);
+      \draw<4-> (plus) -- (star_sym);
+      \draw<4> (star_sym) -- (dot_cloud);
+
+      % slide 5: show dot symbol and two child clouds (1,1)
+      \node[visible on=<5->] (dot_sym) at ([xshift=0.75cm,yshift=-1.5cm]treecenter) {\textcolor{gustave}{$\cdot$}};
+      \node[draw,cloud,visible on=<5>] (b_cloud) at ([xshift=0cm,yshift=-2.25cm]treecenter) {1};
+      \node[draw,cloud,visible on=<5>] (c_cloud) at ([xshift=1.5cm,yshift=-2.25cm]treecenter) {1};
+      \draw<5> (star_sym) -- (dot_sym);
+      \draw<5> (dot_sym) -- (b_cloud);
+      \draw<5> (dot_sym) -- (c_cloud);
+
+      % slide 6: replace clouds with final labels 'b' and 'c' (same coordinates)
+      \node[visible on=<6->] (b_lbl) at ([xshift=0cm,yshift=-2.25cm]treecenter) {\textcolor{gustave}{$b$}};
+      \node[visible on=<6->] (c_lbl) at ([xshift=1.5cm,yshift=-2.25cm]treecenter) {\textcolor{gustave}{$c$}};
+      \draw<6> (star_sym) -- (dot_sym);
+      \draw<6> (dot_sym) -- (b_lbl);
+      \draw<6> (dot_sym) -- (c_lbl);
+    \end{tikzpicture}
+  }
+
+  Maximum-likelihood fitting on Snort rules \footnote{Cisco's Snort Rules Database \url{https://www.snort.org/}} gives approximately $u \simeq 0.9$ and $v \simeq 0.09$.
+\end{frame}
+
+\begin{frame}{The Longest-Literal Recurrence}
+  The statistic of interest is
+  $$Y_n = \text{length of the longest literal extracted from a random tree of size } n.$$
+
+  Base cases:
+  \begin{itemize}
+    \item $Y_1=1$: a letter
+    \item $Y_2=0$: \texttt{*}-rooted tree is ignored, since its language contains the empty string.
+  \end{itemize}
+
+  Let $U_n$ be uniform on $\{1,\ldots,n\}$. Let $I$ and $J$ be indicators of expectations $u$ and $v$ such that $I+J \le 1$. Superscripts are used to denote independent copies.
+
+  $$Y_{n+2} \stackrel{d}{=} I^{(n)}\underbrace{\left(Y_{U_n}^{(1)} + Y_{n+1-U_n}^{(2)}\right)}_{\substack{\text{take \textit{all}}\\ \text{of the subtrees}}} \,\,+\,\, J^{(n)} \underbrace{\max\left(Y_{U_n}^{(1)}, Y_{n+1-U_n}^{(2)}\right)}_{\substack{\text{take \textit{the longer}}\\\text{of the subtrees}}},\quad n\ge 1.$$
+
+  \textbf{Problem:} Analyze the asymptotic behavior of $\EE[Y_n]$. In particular, is it true that $\EE[Y_n] \sim Cn^\alpha$ for some $C, \alpha>0$?
+\end{frame}

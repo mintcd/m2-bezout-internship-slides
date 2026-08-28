@@ -1,0 +1,136 @@
+\section{Stochastic Outlook}
+
+\begin{frame}{Back to the Stochastic Recurrence}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Simulations suggest that
+      \[
+        y_n=\EE[Y_n]\approx Cn^{\alpha^\star}.
+      \]
+
+      \vspace{0.2cm}
+      The exponent is larger than the deterministic lower-bound exponent because
+      \[
+        \EE[\max(X,Y)]
+        >
+        \max(\EE[X],\EE[Y])
+      \]
+      in genuinely random cases.
+    \end{column}
+
+    \begin{column}{0.43\textwidth}
+      \includegraphics[width=\linewidth]{05-03-100000-200000.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{A Fixed-Point Route}
+  Normalize $X_n=Y_n/n^\alpha$. Any limiting distribution should satisfy
+  \[
+    X
+    \stackrel{d}{=}
+    I\left(U^\alpha X^{(1)}+(1-U)^\alpha X^{(2)}\right)
+    +
+    J\max\left(U^\alpha X^{(1)},(1-U)^\alpha X^{(2)}\right).
+  \]
+
+  \vspace{0.25cm}
+  The direct contraction method \footnote{Neininger, R., \& Rüschendorf, L. (2005). Analysis of algorithms by the contraction method: additive and max-recursive sequences.} is obstructed by the fixed point $\delta_0$ and by the fact that the operator does not preserve the mean.
+
+  \vspace{0.25cm}
+  The workaround is a mean-preserving iteration:
+  \[
+    \mu_{n+1}=T_{\alpha_n}(\mu_n),
+    \qquad
+    \EE_{X\sim T_{\alpha_n}(\mu_n)}[X]=1.
+  \]
+\end{frame}
+
+\begin{frame}{Existence of a Fixed-Point}
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=1.1cm,
+        every node/.style={font=\scriptsize},
+        proofstep/.style={
+            draw,
+            rounded corners,
+            fill=black!3,
+            align=center,
+            minimum width=3cm,
+            minimum height=1cm,
+            inner sep=4pt
+          },
+        lemma/.style={
+            proofstep,
+            fill=progress-bar!45,
+            draw=progress-bar!70!black
+          },
+        result/.style={
+            proofstep,
+            fill=gustave!8,
+            draw=gustave!80!black,
+            very thick
+          },
+        arrow/.style={->, thick, >=latex}
+      ]
+
+      \node[lemma] (alpha) at (0,0) {
+        Mean-correcting exponent\\
+        $\alpha(\mu)$ exists uniquely
+      };
+      \node[proofstep] (phi) at (5,0) {
+      Define\\
+      $\Phi(\mu)=T_{\alpha(\mu)}(\mu)$
+      };
+      \node[lemma] (invariant) at (10,0) {
+        Second-moment bound\\
+        $\Phi(\mathcal{D}_2(1,M))\subseteq \mathcal{D}_2(1,M)$
+      };
+
+      \node[lemma] (compact) at (10,-1.5) {
+        $\mathcal{D}_2(1,M)\subset \M(\RR)$\\
+        nonempty, compact, convex
+      };
+      \node[lemma] (continuous) at (5,-1.5) {
+        $\Phi$ is continuous\\
+        in the weak topology
+      };
+      \node[proofstep] (tychonoff) at (0,-1.5) {
+        Apply Tychonoff\\
+        fixed-point theorem
+      };
+
+      \node[result] (fixed) at (5,-3) {
+        Existence\\
+        $\Phi(\mu^\star)=\mu^\star$\\
+        $\alpha^\star=\alpha(\mu^\star)$
+      };
+
+      \draw[arrow] (alpha) -- (phi);
+      \draw[arrow] (phi) -- (invariant);
+      \draw[arrow] (invariant) -- (compact);
+      \draw[arrow] (compact) -- (continuous);
+      \draw[arrow] (continuous) -- (tychonoff);
+      \draw[arrow] (tychonoff) -- (fixed);
+    \end{tikzpicture}%
+  }
+
+  \vspace{0.2cm}
+  \small
+  This gives a nonconstructive fixed point; uniqueness and convergence of the iteration remain separate.
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Hyperscan gives practical motivation for studying statistics of random regular expressions.
+    \item The longest-literal statistic leads to a recurrence with sums, maxima, and resets.
+    \item The deterministic lower bound has exact power-law asymptotics.
+    \item The stochastic recurrence appears to have its own exponent $\alpha^\star$.
+  \end{itemize}
+
+  \vspace{0.35cm}
+  \begin{block}{Main open direction}
+    Prove $y_n=n^{\alpha^\star+o(1)}$, characterize $\alpha^\star$, and prove convergence of the mean-preserving fixed-point iteration.
+  \end{block}
+\end{frame}
