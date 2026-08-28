@@ -46,9 +46,14 @@
   \]
 \end{frame}
 
-\begin{frame}{Existence of a Fixed-Point}
-  \centering
+\begin{frame}{Existence of a Fixed-Point: Tychonoff's Theorem}
+  \begin{itemize}
+    \item $\M(\RR)$: the space of bounded Radon measures on $\RR$
+    \item $\D$: the space of probability measures on $\RR$
+    \item $\mathcal{D}_2(1,M)$: the set of probability measures with mean 1 and second moment bounded by $M$
+  \end{itemize}
   \resizebox{\textwidth}{!}{%
+    \centering
     \begin{tikzpicture}[
         node distance=1.1cm,
         every node/.style={font=\scriptsize},
@@ -77,48 +82,43 @@
 
       \node[lemma] (alpha) at (0,0) {
         Mean-correcting exponent\\
-        $\alpha(\mu)$ exists uniquely
+        $\alpha: \D\to \D \text{ s.t. } \mathbb{E}_\mu[X]=\mathbb{E}_\mu[T_\alpha(X)]$ \\
+        is well-defined
       };
-      \node[proofstep] (phi) at (5,0) {
-      Define\\
-      $\Phi(\mu)=T_{\alpha(\mu)}(\mu)$
-      };
-      \node[lemma] (invariant) at (10,0) {
-        Second-moment bound\\
-        $\Phi(\mathcal{D}_2(1,M))\subseteq \mathcal{D}_2(1,M)$
+      \node[lemma] (invariant) at (8,0) {
+      $\Phi(\mu):=T_{\alpha(\mu)}(\mu)$\\
+      $\exists M, \Phi(\mathcal{D}_2(1,M))\subseteq \mathcal{D}_2(1,M)$
       };
 
-      \node[lemma] (compact) at (10,-1.5) {
+      \node[lemma] (compact) at (8, -1.5) {
         $\mathcal{D}_2(1,M)\subset \M(\RR)$\\
         nonempty, compact, convex
       };
-      \node[lemma] (continuous) at (5,-1.5) {
-        $\Phi$ is continuous\\
-        in the weak topology
-      };
-      \node[proofstep] (tychonoff) at (0,-1.5) {
-        Apply Tychonoff\\
-        fixed-point theorem
+
+      \node[lemma] (w1-continuous) at (0,-1.5) {
+        $\Phi$ is continuous wrt.\\
+        the Wasserstein-1 metric
       };
 
-      \node[result] (fixed) at (5,-3) {
-        Existence\\
+
+      \node[lemma] (weak-continuous) at (0,-3) {
+        $\Phi$ is continuous wrt.\\
+        the weak topology
+      };
+
+      \node[result] (fixed) at (8,-3) {
+        Existence (nonconstructively)\\
         $\Phi(\mu^\star)=\mu^\star$\\
         $\alpha^\star=\alpha(\mu^\star)$
       };
 
-      \draw[arrow] (alpha) -- (phi);
-      \draw[arrow] (phi) -- (invariant);
-      \draw[arrow] (invariant) -- (compact);
-      \draw[arrow] (compact) -- (continuous);
-      \draw[arrow] (continuous) -- (tychonoff);
-      \draw[arrow] (tychonoff) -- (fixed);
+      \draw[arrow] (alpha) -- (invariant);
+      \draw[arrow] (invariant) -- node[font=\scriptsize\itshape, right] {Prokhorov's theorem}  (compact);
+      \draw[arrow] (w1-continuous) -- node[font=\scriptsize\itshape, right] {Theorem 6.9 \footnote{Villani, C. (2009). Optimal transport: old and new}} (weak-continuous);
+      \draw[arrow] (weak-continuous) -- (fixed);
+      \draw[arrow] (compact) -- (fixed);
     \end{tikzpicture}%
   }
-
-  \vspace{0.2cm}
-
-  This gives a nonconstructive fixed point; uniqueness and convergence of the iteration remain separate.
 \end{frame}
 
 \begin{frame}{Conclusion}
@@ -131,6 +131,10 @@
 
   \vspace{0.35cm}
   \begin{block}{Main open direction}
-    Prove $y_n=n^{\alpha^\star+o(1)}$, characterize $\alpha^\star$, and prove convergence of the mean-preserving fixed-point iteration.
+    \begin{itemize}
+      \item Uniqueness of the fixed-point distribution $\mu^\star$.
+      \item The asymptotics $y_n=n^{\alpha^\star+o(1)}$, characterization $\alpha^\star$.
+      \item Convergence of the mean-preserving fixed-point iteration.
+    \end{itemize}
   \end{block}
 \end{frame}
