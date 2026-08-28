@@ -46,11 +46,11 @@
   \]
 \end{frame}
 
-\begin{frame}{Existence of a Fixed-Point: Tychonoff's Theorem}
+\begin{frame}{Existence via Tychonoff}
   \begin{itemize}
     \item $\M(\RR)$: the space of bounded Radon measures on $\RR$
-    \item $\D$: the space of probability measures on $\RR$
-    \item $\mathcal{D}_2(1,M)$: the set of probability measures with mean 1 and second moment bounded by $M$
+    \item $\D(1)$: probability measures on $\RR_+$ with mean $1$
+    \item $\D_2(1,M)$: elements of $\D(1)$ with second moment at most $M$
   \end{itemize}
   \resizebox{\textwidth}{!}{%
     \centering
@@ -82,16 +82,17 @@
 
       \node[lemma] (alpha) at (0,0) {
         Mean-correcting exponent\\
-        $\alpha: \D\to \D \text{ s.t. } \mathbb{E}_\mu[X]=\mathbb{E}_\mu[T_\alpha(X)]$ \\
-        is well-defined
+        choose $\alpha(\mu)\in(0,1]$\\
+        with $\EE_{X\sim T_{\alpha(\mu)}(\mu)}[X]=1$
       };
       \node[lemma] (invariant) at (8,0) {
       $\Phi(\mu):=T_{\alpha(\mu)}(\mu)$\\
-      $\exists M, \Phi(\mathcal{D}_2(1,M))\subseteq \mathcal{D}_2(1,M)$
+      choose $M$ so that\\
+      $\Phi(\D_2(1,M))\subseteq \D_2(1,M)$
       };
 
       \node[lemma] (compact) at (8, -1.5) {
-        $\mathcal{D}_2(1,M)\subset \M(\RR)$\\
+        $\D_2(1,M)\subset \M(\RR)$\\
         nonempty, compact, convex
       };
 
@@ -107,14 +108,14 @@
       };
 
       \node[result] (fixed) at (8,-3) {
-        Existence (nonconstructively)\\
+        Tychonoff conclusion\\
         $\Phi(\mu^\star)=\mu^\star$\\
         $\alpha^\star=\alpha(\mu^\star)$
       };
 
       \draw[arrow] (alpha) -- (invariant);
       \draw[arrow] (invariant) -- node[font=\scriptsize\itshape, right] {Prokhorov's theorem}  (compact);
-      \draw[arrow] (w1-continuous) -- node[font=\scriptsize\itshape, right] {Theorem 6.9 \footnote{Villani, C. (2009). Optimal transport: old and new}} (weak-continuous);
+      \draw[arrow] (w1-continuous) -- node[font=\scriptsize\itshape, right] {uniform integrability} (weak-continuous);
       \draw[arrow] (weak-continuous) -- (fixed);
       \draw[arrow] (compact) -- (fixed);
     \end{tikzpicture}%
