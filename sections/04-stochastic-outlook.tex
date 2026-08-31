@@ -33,11 +33,16 @@
     +
     J\max\left(U^\alpha X^{(1)},(1-U)^\alpha X^{(2)}\right).
   \]
+  Contraction method \footnote{Neininger, R., \& Rüschendorf, L. (2005). Analysis of algorithms by the contraction method: additive and max-recursive sequences.}:
 
-  \vspace{0.25cm}
-  The direct contraction method \footnote{Neininger, R., \& Rüschendorf, L. (2005). Analysis of algorithms by the contraction method: additive and max-recursive sequences.} is obstructed by the fixed point $\delta_0$ and by the fact that the operator does not preserve the mean.
+  \begin{itemize}
+    \item Consider an appropriate metric on the space of probability distributions.
+    \item Show that the operator on the right-hand side is a contraction and use Banach's fixed-point theorem to get a unique fixed-point distribution $X$.
+    \item Prove that $X_n\xrightarrow{d} X$.
+  \end{itemize}
 
-  \vspace{0.25cm}
+  Direct application failed because $\delta_0$ is an undesired fixed point.
+
   The workaround is a mean-preserving iteration:
   \[
     \mu_{n+1}=T_{\alpha_n}(\mu_n),
@@ -82,13 +87,12 @@
 
       \node[lemma, visible on=<1->] (alpha) at (0,0) {
         Mean-correcting exponent\\
-        choose $\alpha(\mu)\in(0,1]$\\
-        with $\EE_{X\sim T_{\alpha(\mu)}(\mu)}[X]=1$
+        $\forall \mu\in\D(1),\exists! \alpha(\mu)\in(0,1],$\\
+        $\EE_{X\sim T_{\alpha(\mu)}(\mu)}[X]=1$
       };
       \node[lemma, visible on=<2->] (invariant) at (8,0) {
       $\Phi(\mu):=T_{\alpha(\mu)}(\mu)$\\
-      choose $M$ so that\\
-      $\Phi(\D_2(1,M))\subseteq \D_2(1,M)$
+      $\exists M,\Phi(\D_2(1,M))\subseteq \D_2(1,M)$
       };
 
       \node[lemma, visible on=<3->] (compact) at (8, -1.5) {
@@ -108,7 +112,6 @@
       };
 
       \node[result, visible on=<5->] (fixed) at (8,-3) {
-        Tychonoff conclusion\\
         $\Phi(\mu^\star)=\mu^\star$\\
         $\alpha^\star=\alpha(\mu^\star)$
       };
@@ -134,7 +137,7 @@
   \begin{block}{Main open direction}
     \begin{itemize}
       \item Uniqueness of the fixed-point distribution $\mu^\star$.
-      \item The asymptotics $y_n=n^{\alpha^\star+o(1)}$, characterization $\alpha^\star$.
+      \item The asymptotics $y_n=n^{\alpha^\star+o(1)}$, characterization of $\alpha^\star$.
       \item Convergence of the mean-preserving fixed-point iteration.
     \end{itemize}
   \end{block}

@@ -4,7 +4,7 @@
   \begin{itemize}
     \item Modern algorithms cannot be fully understood by classical textbook techniques alone.
     \item In particular, modern regular expression engines are not just automata evaluators.
-    \item Hyperscan combines graph decompositions, SIMD \footnote{Single Instruction, Multiple Data} literal matchers (filtering and verification), and regular expression verifiers.
+    \item Hyperscan combines graph decompositions, SIMD \footnote{Single Instruction, Multiple Data} literal matchers (filtering and verification), and SIMD automata-based regular expression verifiers.
     \item This gives a productive source of theoretical questions.
   \end{itemize}
 \end{frame}
@@ -17,9 +17,9 @@
       ]
       \node[node] (regex) at (0,0) {regular\\expression};
       \node[node] (nfa) at (3,0) {Glushkov\\NFA};
-      \node[node] (split) at (6,0) {literals +\\sub-FAs};
-      \node[node] (scan) at (9,0) {SIMD literal\\matching};
-      \node[node] (verify) at (12,0) {verification};
+      \node[node] (split) at (6,0) {literals \& \\sub-FAs};
+      \node[node] (scan) at (9,0) { literal\\matches};
+      \node[node] (verify) at (12,0) {final matches};
 
       \draw[arrow] (regex) -- (nfa);
       \draw[arrow] (nfa) -- (split);

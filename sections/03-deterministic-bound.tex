@@ -16,9 +16,9 @@
   \[
     z_{n+2}
     =
-    \frac{2u}{n}\sum_{i=1}^{n} z_i
+    \dfrac{1}{n}\sum_{i=1}^{n} \left(u\left(z_i+z_{n+1-i}\right)
     +
-    \frac{v}{n}\sum_{i=1}^{n}\max(z_i,z_{n+1-i}),
+    v\max(z_i,z_{n+1-i})\right),
     \qquad z_1=1,\;z_2=0.
   \]
 \end{frame}
@@ -110,9 +110,7 @@
         Eventual monotonicity
       };
       \node[result, visible on=<5->] (delayed) at (0,-4.5) {
-      Delayed recurrence \\
-      $nz_{n+2}-(n-1)z_{n+1}$\\
-      $=2(u+v)z_n-vz_{\lfloor n/2\rfloor}$
+        Delayed recurrence
       };
       \node[lemma, visible on=<6->] (absolute-convergence) at (5,-4.5) {
         $\sum |\Delta(z_n/n^\alpha)|<\infty$
@@ -133,5 +131,46 @@
     \end{tikzpicture}%
   }
 
-  \vspace{0.2cm}
+  \only<1>{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node at (current page.center) {%
+        \resizebox{0.95\textwidth}{!}{$
+            \begin{gathered}
+              F(x,y) = u(x+y)+v\max(x,y), \\[0.8em]
+              \displaystyle
+              \dfrac{1}{n}\sum\limits_{i=1}^n F(i^\alpha, (n+1-i)^\alpha)
+              \sim n^\alpha \int_0^1 F(x^\alpha, (1-x)^\alpha) \,\mathrm{d}x
+              = n^\alpha \cdot \dfrac{2(u+v)-v2^{-\alpha}}{\alpha+1}.
+            \end{gathered}
+          $}%
+      };
+    \end{tikzpicture}%
+  }
+
+  \only<2>{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node at ([yshift=-1.5cm]current page.center) {%
+        \resizebox{0.95\textwidth}{!}{$
+            \begin{gathered}
+              \text{Let } f:[0,\infty)\to\mathbb{R} \text{ be increasing. Then} \\[0.8em]
+              \displaystyle
+              \sum_{i=0}^{n-1} \max(f(i),f(n-1-i))
+              \le 2\int_{n/2}^n f(x) \,\mathrm{d}x
+              \le \sum_{i=1}^{n} \max(f(i),f(n+1-i)).
+            \end{gathered}
+          $}%
+      };
+    \end{tikzpicture}%
+  }
+
+  \only<5>{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node at ([xshift=2.4cm,yshift=-2.65cm]current page.center) {%
+      \resizebox{0.58\textwidth}{!}{$\displaystyle
+        nz_{n+2}-(n-1)z_{n+1}
+        =2(u+v)z_n-vz_{\lceil n/2\rceil}
+      $}%
+      };
+    \end{tikzpicture}%
+  }
 \end{frame}
