@@ -136,7 +136,11 @@
       \node at (current page.center) {%
         \resizebox{0.95\textwidth}{!}{$
             \begin{gathered}
-              F(x,y) = u(x+y)+v\max(x,y), \\[0.8em]
+              F(x,y) = u(x+y)+v\max(x,y),
+              \\[0.8em]
+              \displaystyle
+              \text{heuristics: } F(z_i,z_{n+1-i}) \sim F(i^\alpha,(n+1-i)^\alpha),
+              \\[0.8em]
               \displaystyle
               \dfrac{1}{n}\sum\limits_{i=1}^n F(i^\alpha, (n+1-i)^\alpha)
               \sim n^\alpha \int_0^1 F(x^\alpha, (1-x)^\alpha) \,\mathrm{d}x

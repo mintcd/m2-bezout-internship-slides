@@ -2,9 +2,17 @@
 
 \begin{frame}{Why Hyperscan?}
   \begin{itemize}
-    \item Modern algorithms cannot be fully understood by classical textbook techniques alone.
-    \item In particular, modern regular expression engines are not just automata evaluators.
-    \item Hyperscan combines graph decompositions, SIMD \footnote{Single Instruction, Multiple Data} literal matchers (filtering and verification), and SIMD automata-based regular expression verifiers.
+    \item Textbook techniques analyze algorithms based on an abstraction over hardware e.g., the number of comparisons for sorting algorithms.
+    \item Realistic analysis requires more (caching, branch prediction, SIMD \footnote{Single Instruction, Multiple Data}, etc.)
+    \item Analyzing Hyperscan is not solely counting the number of automata transitions, since it combines
+
+          \begin{itemize}
+            \setbeamertemplate{itemize subitem}{\(\circ\)}
+            \item graph decompositions
+            \item SIMD  literal matchers (filtering and verification)
+            \item SIMD automata-based regular expression verifiers
+          \end{itemize}
+
     \item This gives a productive source of theoretical questions.
   \end{itemize}
 \end{frame}

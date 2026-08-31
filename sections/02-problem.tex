@@ -14,7 +14,9 @@
             \item alternation (\texttt{|}) with probability $v$,
             \item Kleene star (\texttt{*}) with probability $1-u-v$.
           \end{itemize}
+          If a binary operator was chosen, choose $i\in\{1,\ldots,n-1\}$ uniformly at random, then the left and right subtrees are sampled i.i.d. with sizes $i$ and $n-1-i$, respectively.
   \end{itemize}
+  \only<7>{Maximum-likelihood fitting on Snort rules \footnote{Cisco's Snort Rules Database \url{https://www.snort.org/}} gives approximately $u \simeq 0.9$ and $v \simeq 0.09$.}
 
   \only<2-6>{
     \begin{tikzpicture}[remember picture,overlay]
@@ -24,8 +26,8 @@
       % slide 2: big cloud
       \node[draw,cloud,minimum size=2cm,visible on=<2>] (rootcloud) at ([yshift=-1.25cm]treecenter) {6 nodes};
 
-      % root symbol '+' appears from slide 3 and stays
-      \node[visible on=<3->] (plus) at (treecenter) {\textcolor{gustave}{$+$}};
+      % root symbol '|' appears from slide 3 and stays
+      \node[visible on=<3->] (plus) at (treecenter) {\textcolor{gustave}{$|$}};
 
       % small clouds for slide 3 (placed at final positions but only visible on slide 3)
       \node[draw,cloud,visible on=<3>] (a_cloud)    at ([xshift=-0.75cm,yshift=-0.75cm]treecenter) {1};
@@ -58,7 +60,7 @@
     \end{tikzpicture}
   }
 
-  Maximum-likelihood fitting on Snort rules \footnote{Cisco's Snort Rules Database \url{https://www.snort.org/}} gives approximately $u \simeq 0.9$ and $v \simeq 0.09$.
+
 \end{frame}
 
 \begin{frame}{The Longest-Literal Recurrence}
