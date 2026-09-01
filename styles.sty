@@ -84,6 +84,9 @@
 
 % Shared counter for all theorem-like environments
 \newcounter{mytheoremcounter}
+% A frame is typeset once per overlay; restore the counter before each pass so
+% the same theorem keeps the same number throughout the frame.
+\resetcounteronoverlays{mytheoremcounter}
 
 \newtcolorbox{mydefinition}[1][]{%
   enhanced,

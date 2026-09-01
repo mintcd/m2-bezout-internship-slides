@@ -29,34 +29,54 @@
   \[
     X
     \stackrel{d}{=}
-    I\left(U^\alpha X^{(1)}+(1-U)^\alpha X^{(2)}\right)
+    T_\alpha(X) := I\left(U^\alpha X^{(1)}+(1-U)^\alpha X^{(2)}\right)
     +
     J\max\left(U^\alpha X^{(1)},(1-U)^\alpha X^{(2)}\right).
   \]
   Contraction method \footnote{Neininger, R., \& Rüschendorf, L. (2005). Analysis of algorithms by the contraction method: additive and max-recursive sequences.}:
 
   \begin{itemize}
-    \item Consider an appropriate metric on the space of probability distributions.
-    \item Show that the operator on the right-hand side is a contraction and use Banach's fixed-point theorem to get a unique fixed-point distribution $X$.
+    \item Consider an appropriate metric space of probability distributions.
+    \item Show that the operator on the RHS is contractive.
+    \item Use Banach's fixed-point theorem to get a unique solution $X$.
     \item Prove that $X_n\xrightarrow{d} X$.
   \end{itemize}
 
   Direct application failed because $\delta_0$ is an undesired fixed point.
 
   The workaround is a mean-preserving iteration:
-  \[
-    \mu_{n+1}=T_{\alpha_n}(\mu_n),
-    \qquad
-    \EE_{X\sim T_{\alpha_n}(\mu_n)}[X]=1.
-  \]
+  \begin{align*}
+     & \mu_1 = \delta_1,                                                                    \\
+     & \alpha_n : \EE_{X\sim T_{\alpha_n}(\mu_n)}[X]=1,\quad \mu_{n+1}=T_{\alpha_n}(\mu_n).
+  \end{align*}
+
 \end{frame}
 
 \begin{frame}{Existence via Tychonoff}
-  \begin{itemize}
-    \item<1-> $\M(\RR)$: the space of bounded Radon measures on $\RR$
-    \item<1-> $\D(1)$: probability measures on $\RR_+$ with mean $1$
-    \item<2-> $\D_2(1,M)$: elements of $\D(1)$ with second moment at most $M$
-  \end{itemize}
+  \begin{mytheorem}[Tychonoff]
+    Let
+    \begin{itemize}
+      \item $\M$ be a locally convex topological vector space,
+      \item $\C$ be a nonempty, compact, convex subset of $\M$,
+      \item $f: \C \to \C$ be a continuous mapping.
+    \end{itemize}
+    Then $f$ has a fixed point.
+  \end{mytheorem}
+
+  % Unlike \only, \uncover reserves the same space on every overlay, keeping
+  % the theorem box at a fixed vertical position.
+  \uncover<2>{Preparing the ingredients:
+
+    \begin{itemize}
+      \item $\M(\RR)$: the space of bounded Radon measures on $\RR$ equipped with the weak topology (our $\M$),
+      \item $\D(1)$: probability measures on $\RR_+$ with mean $1$,
+      \item $\D_2(1,M)$: elements of $\D(1)$ with second moment at most $M$ (our $\C$),
+      \item $f$ is $\Phi$, to be shown later.
+    \end{itemize}}
+\end{frame}
+
+\begin{frame}{Existence via Tychonoff}
+
   \resizebox{\textwidth}{!}{%
     \centering
     \begin{tikzpicture}[
@@ -124,6 +144,8 @@
     \end{tikzpicture}%
   }
 \end{frame}
+
+
 
 \begin{frame}{Conclusion}
   \begin{itemize}
